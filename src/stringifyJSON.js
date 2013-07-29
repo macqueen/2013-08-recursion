@@ -23,7 +23,8 @@ var stringifyJSON = function (obj) {
   	}
   	// object
   	else if (Object.prototype.toString.call(obj[prop]) === '[object Object]') {
-  		stringifyJSON(obj[prop]);
+  		updaterString = stringifyJSON(obj[prop]);
+  		resultString = resultString.concat(updaterString);
   	}
   }
   if (resultString[resultString.length - 1] === ',') {
@@ -33,3 +34,4 @@ var stringifyJSON = function (obj) {
   console.log(resultString);
   return resultString;
 };
+
