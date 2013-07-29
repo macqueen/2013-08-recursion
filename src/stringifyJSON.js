@@ -3,27 +3,28 @@
 
 // but you don't so you're going to have to write it from scratch:
 
+/*
 var stringifyJSON = function (obj) {
   var resultString = '';
   var updaterString = '';
   for (prop in obj) {
   	// string, bool or integer
-  	if (typeof obj[prop] === 'string' || typeof obj[prop] === 'number' || typeof obj[prop] === 'boolean') {
-  		updaterString = '\"' + prop + '\"' + ':' + '\"' + String(obj[prop]) + '\"';
+  	if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean' || typeof obj === 'null') {
+  		updaterString = '\"' + prop + '\"' + ':' + '\"' + String(obj) + '\"';
   		resultString = resultString.concat(updaterString) + ',';
   	}
   	// array
-  	else if (Object.prototype.toString.call(obj[prop]) === '[object Array]') {
+  	else if (Object.prototype.toString.call(obj) === '[object Array]') {
   		updaterString = '\"' + prop + '\"' + ':' + '[';
   		resultString = resultString.concat(updaterString);
-  		for (var i = 0; i < obj[prop].length; i++) {
-  			resultString = resultString.concat(String(obj[prop][i]));
+  		for (var i = 0; i < obj.length; i++) {
+  			resultString = resultString.concat(String(obj[i]));
   		}
   		resultString = resultString + '],'
   	}
   	// object
-  	else if (Object.prototype.toString.call(obj[prop]) === '[object Object]') {
-  		updaterString = stringifyJSON(obj[prop]);
+  	else if (Object.prototype.toString.call(obj) === '[object Object]') {
+  		updaterString = stringifyJSON(obj);
   		resultString = resultString.concat(updaterString);
   	}
   }
@@ -31,7 +32,40 @@ var stringifyJSON = function (obj) {
   	resultString = resultString.slice(0, -1);
   }
   resultString = '{' + resultString + '}';
-  console.log(resultString);
+  //console.log(resultString);
   return resultString;
 };
 
+*/
+
+var stringifyJSON = function (obj) {
+  var resultString = '';
+  var updaterString = '';
+
+  // string, bool or integer
+  if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean' || typeof obj === 'undefined') {
+  	updaterString = '\"' + String(obj) + '\"';
+  	resultString = resultString.concat(updaterString) + ',';
+  }
+  // array
+  else if (Object.prototype.toString.call(obj) === '[object Array]') {
+  	updaterString = '[';
+  	resultString = resultString.concat(updaterString);
+  	for (var i = 0; i < obj.length; i++) {
+  		resultString = resultString.concat(String(obj[i]));
+  	}
+  	resultString = resultString + '],'
+  }
+  // object
+  else if (Object.prototype.toString.call(obj) === '[object Object]') {
+  	updaterString = stringifyJSON(obj);
+  	resultString = resultString.concat(updaterString);
+  }
+ 
+  if (resultString[resultString.length - 1] === ',') {
+  	resultString = resultString.slice(0, -1);
+  }
+  // resultString = '{' + resultString + '}';
+  // console.log(resultString);
+  return resultString;
+};
