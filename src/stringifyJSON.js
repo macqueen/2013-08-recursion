@@ -46,17 +46,17 @@ var stringifyJSON = function (obj) {
   if (typeof obj === 'number' || typeof obj === 'boolean') {
   	// updaterString = '\"' + String(obj) + '\"';
   	updaterString = obj;
-  	resultString = resultString.concat(updaterString) + ',';
+  	resultString = resultString.concat(updaterString) //+ ',';
   }
   // string
   else if (typeof obj === 'string') {
   	updaterString = '\"' + String(obj) + '\"';
-  	resultString = resultString.concat(updaterString) + ',';
+  	resultString = resultString.concat(updaterString) //+ ',';
   }
   // undefined
   else if (typeof obj === 'undefined') {
   	updaterString = null;
-  	resultString = resultString.concat(updaterString) + ',';
+  	resultString = resultString.concat(updaterString) //+ ',';
   }
 
   // array
@@ -64,19 +64,24 @@ var stringifyJSON = function (obj) {
   	updaterString = '[';
   	resultString = resultString.concat(updaterString);
   	for (var i = 0; i < obj.length; i++) {
-  		resultString = resultString.concat(String(obj[i]));
+  	  if (resultString[0] !== '[') {
+  	    resultString = resultString.concat(',');
+      }
+  		// resultString = resultString.concat(String(obj[i]));
+  		updaterString = stringifyJSON(obj[i]);
+  		resultString = resultString.concat(updaterString);
   	}
-  	resultString = resultString + '],'
+  	resultString = resultString + ']' //comma removed
   }
   // object
   else if (Object.prototype.toString.call(obj) === '[object Object]') {
   	updaterString = stringifyJSON(obj);
   	resultString = resultString.concat(updaterString);
-  }
- 
-  if (resultString[resultString.length - 1] === ',') {
-  	resultString = resultString.slice(0, -1);
-  }
+  } 
+
+  //if (resultString[resultString.length - 1] === ',') {
+  	//resultString = resultString.slice(0, -1);
+  //}
   // resultString = '{' + resultString + '}';
   // console.log(resultString);
   return resultString;
