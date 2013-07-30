@@ -43,10 +43,22 @@ var stringifyJSON = function (obj) {
   var updaterString = '';
 
   // string, bool or integer
-  if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean' || typeof obj === 'undefined') {
+  if (typeof obj === 'number' || typeof obj === 'boolean') {
+  	// updaterString = '\"' + String(obj) + '\"';
+  	updaterString = obj;
+  	resultString = resultString.concat(updaterString) + ',';
+  }
+  // string
+  else if (typeof obj === 'string') {
   	updaterString = '\"' + String(obj) + '\"';
   	resultString = resultString.concat(updaterString) + ',';
   }
+  // undefined
+  else if (typeof obj === 'undefined') {
+  	updaterString = null;
+  	resultString = resultString.concat(updaterString) + ',';
+  }
+
   // array
   else if (Object.prototype.toString.call(obj) === '[object Array]') {
   	updaterString = '[';
