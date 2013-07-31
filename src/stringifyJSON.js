@@ -47,36 +47,39 @@ var stringifyJSON = function (obj) {
   	// updaterString = '\"' + String(obj) + '\"';
   	updaterString = obj;
   	resultString = resultString.concat(updaterString) //+ ',';
+  	return resultString;
   }
   // string
   else if (typeof obj === 'string') {
   	updaterString = '\"' + String(obj) + '\"';
   	resultString = resultString.concat(updaterString) //+ ',';
+  	return resultString;
   }
   // undefined
   else if (typeof obj === 'undefined') {
   	updaterString = null;
   	resultString = resultString.concat(updaterString) //+ ',';
+  	return resultString;
   }
 
   // array
   else if (Object.prototype.toString.call(obj) === '[object Array]') {
   	updaterString = '[';
   	resultString = resultString.concat(updaterString);
+  	var tempObject = [];
   	for (var i = 0; i < obj.length; i++) {
-  	  if (resultString[0] !== '[') {
-  	    resultString = resultString.concat(',');
-      }
-  		updaterString = stringifyJSON(obj[i]);
-  		resultString = resultString.concat(updaterString);
+  		tempObject[i] = stringifyJSON(obj[i]);
   	}
-  	resultString = resultString + ']' //comma removed
+  	updaterString = tempObject.join();
+  	resultString = resultString + updaterString + ']' //comma removed
+  	return resultString;
   }
   // object
   else if (Object.prototype.toString.call(obj) === '[object Object]') {
   	updaterString = stringifyJSON(obj);
   	resultString = resultString.concat(updaterString);
-  } 
+  	return resultString;
+  }
 
   //if (resultString[resultString.length - 1] === ',') {
   	//resultString = resultString.slice(0, -1);
