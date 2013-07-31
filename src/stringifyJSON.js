@@ -76,9 +76,18 @@ var stringifyJSON = function (obj) {
   }
   // object
   else if (Object.prototype.toString.call(obj) === '[object Object]') {
-  	updaterString = stringifyJSON(obj);
+  	updaterString = '{';
   	resultString = resultString.concat(updaterString);
+  	for (prop in obj) {
+  		updaterString = stringifyJSON(prop) + ':' + stringifyJSON(obj[prop]);
+  		resultString = resultString.concat(updaterString) + ',';
+  	}
+  	resultString = resultString.slice(0, -1) + '}';
+  	//resultString = resultString + '}';
   	return resultString;
+  	/*updaterString = stringifyJSON(obj);
+  	resultString = resultString.concat(updaterString);
+  	return resultString; */
   }
 
   //if (resultString[resultString.length - 1] === ',') {
