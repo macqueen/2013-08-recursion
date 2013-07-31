@@ -46,19 +46,20 @@ var stringifyJSON = function (obj) {
   if (typeof obj === 'number' || typeof obj === 'boolean') {
   	// updaterString = '\"' + String(obj) + '\"';
   	updaterString = obj;
-  	resultString = resultString.concat(updaterString) //+ ',';
+  	resultString = resultString.concat(updaterString);
   	return resultString;
   }
   // string
   else if (typeof obj === 'string') {
   	updaterString = '\"' + String(obj) + '\"';
-  	resultString = resultString.concat(updaterString) //+ ',';
+  	resultString = resultString.concat(updaterString);
   	return resultString;
   }
   // undefined
-  else if (typeof obj === 'undefined') {
+  // else if (typeof obj === 'undefined') {
+  else if (!obj) {
   	updaterString = null;
-  	resultString = resultString.concat(updaterString) //+ ',';
+  	resultString = resultString.concat(updaterString);
   	return resultString;
   }
 
