@@ -67,7 +67,6 @@ var stringifyJSON = function (obj) {
   	  if (resultString[0] !== '[') {
   	    resultString = resultString.concat(',');
       }
-  		// resultString = resultString.concat(String(obj[i]));
   		updaterString = stringifyJSON(obj[i]);
   		resultString = resultString.concat(updaterString);
   	}
