@@ -6,12 +6,37 @@
 // But in stead we're going to implement it from scratch:
 var getElementsByClassName = function (className) {
   var elem = document.body;
-  var AllElems = [];
   var matchElems = [];
+
+  if (elem.childNodes.length !== 0) {
+  	var child = elem.firstChild;
+  	// console.log(child);
+  	while(child) {
+  		if (child.nodeType === 1) {
+  			if (child.classList.contains(className)) {
+  				matchElems.push(child);
+  			}
+  			child.getElementsByClassName(className);
+  			child = child.nextSibling;
+  		}
+  		else {
+  			child = child.nextSibling;
+  		}
+  		console.log(child);
+  	}
+  }
+  else {
+  	// return array
+  	console.log('made it to else')
+  	console.log(matchElems);
+  }
   
+  
+
+/*
   if (elem.childNodes.length!==0) {
   	// change this to 0 -- need to figure out how to get rid of #text
-    for (var i = 1; i < elem.childNodes.length; i++) {
+    for (var i = 0; i < elem.childNodes.length; i++) {
       console.log(elem.childNodes[i].classList.contains(className));
    	  if (elem.childNodes[i].classList.contains(className)) {
   		matchElems.push(elem.childNodes[i].classList);
@@ -27,7 +52,7 @@ var getElementsByClassName = function (className) {
   }
   else {
   	// return array that is converted to html doc
-  }
+  } */
 };
 
 
