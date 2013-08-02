@@ -10,7 +10,6 @@ var stringifyJSON = function (obj) {
 
   // string, bool or integer
   if (typeof obj === 'number' || typeof obj === 'boolean') {
-  	// updaterString = '\"' + String(obj) + '\"';
   	updaterString = obj;
   	resultString = resultString.concat(updaterString);
   	return resultString;
@@ -22,13 +21,11 @@ var stringifyJSON = function (obj) {
   	return resultString;
   }
   // null
-  // else if (typeof obj === 'undefined') {
   else if (!obj) {
   	updaterString = null;
   	resultString = resultString.concat(updaterString);
   	return resultString;
   }
-
   // array
   else if (Object.prototype.toString.call(obj) === '[object Array]') {
   	updaterString = '[';
