@@ -21,7 +21,7 @@ var stringifyJSON = function (obj) {
   	resultString = resultString.concat(updaterString);
   	return resultString;
   }
-  // undefined
+  // null
   // else if (typeof obj === 'undefined') {
   else if (!obj) {
   	updaterString = null;
@@ -46,8 +46,10 @@ var stringifyJSON = function (obj) {
   	updaterString = '{';
   	resultString = resultString.concat(updaterString);
   	for (prop in obj) {
-  		updaterString = stringifyJSON(prop) + ':' + stringifyJSON(obj[prop]);
-  		resultString = resultString.concat(updaterString) + ',';
+  		if (typeof obj[prop] !== 'function' && typeof obj[prop] !== 'undefined') {
+  		  updaterString = stringifyJSON(prop) + ':' + stringifyJSON(obj[prop]);
+  		  resultString = resultString.concat(updaterString) + ',';
+  		}
   	}
   	if (resultString[resultString.length - 1] === ',') {
   		resultString = resultString.slice(0, -1);
