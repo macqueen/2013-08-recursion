@@ -12,7 +12,7 @@ var getElementsByClassName = function (className, currentNode, matches) {
   	if (elem.classList.contains(className)) {
   	  matchElems.push(elem);
   	  // console.log(matchElems);
-  		// return matchElems;
+  	  return matchElems;
   	}
   }
 
@@ -24,8 +24,9 @@ var getElementsByClassName = function (className, currentNode, matches) {
 
   for (var i = 0; i < elem.childNodes.length; i++) {
   	if (elem.childNodes.length !== 0) {
-  		var child = elem.childNodes[i];
-  		getElementsByClassName(className, child, matchElems);
+  	  var child = elem.childNodes[i];
+  	  console.log(child);
+  	  getElementsByClassName(className, child, matchElems);
   	}
   }
   // return matchElems;
